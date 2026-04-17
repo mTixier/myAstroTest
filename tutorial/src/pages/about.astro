@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
 
 const pgTitle = "About Me";
 
@@ -42,10 +44,7 @@ const skillColor = "crimson";
 		
 	</head>
 	<body>
-	  <a href="/myAstroTest">Home</a>
-	  <a href="/myAstroTest/about">About</a>
-	  <a href="/myAstroTest/blog">Blog</a>
-		
+		<Navigation/>
 		<h1>{pgTitle}</h1>
 		<h2>... and my new Astro site!</h2>
 
@@ -69,6 +68,6 @@ const skillColor = "crimson";
 		<ul>
 		  {skills.map((skill) => <li class="skill">{skill}</li>)}
 		</ul>
-		
+		<Footer />
 	</body>
 </html>
