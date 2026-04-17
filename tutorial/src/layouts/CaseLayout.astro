@@ -1,0 +1,18 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { frontmatter } = Astro.props;
+---
+<BaseLayout pgTitle={frontmatter.title}>
+	<p>Author(s): {frontmatter.author}
+		<div>
+			{frontmatter.authors.map((author) => <p>{author}{frontmatter.authors.length === 1 ?"":", "}</p>)}
+		</div>
+	</p>
+	<p>Published on: {frontmatter.pubDate.toString().slice(0,10)}</p>
+	<div class="tags">
+	    {frontmatter.tags.map((topic) => (
+      <p class="tag"><a href={`/myAstroTest/topics/${topic}`}>{topic}</a></p>
+    ))}
+	</div>
+	<slot />
+</BaseLayout>

@@ -1,8 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+//
+import { getCollection } from "astro:content";
 
-const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
-const topics = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+//const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+const allCases = await getCollection("cases");
+//const topics = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+const topics = [...new Set(allCases.map((c) => c.data.tags).flat())];
 
 const pgTitle = "Topics index";
 ---

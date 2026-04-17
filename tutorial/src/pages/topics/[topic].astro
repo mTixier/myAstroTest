@@ -1,28 +1,43 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogPost from '../../components/BlogPost.astro';
+import Case from '../../components/Case.astro';
 
 export async function getStaticPaths() {
-	const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+	//const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
 	
-	const uniqueTopics = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+	const allCases = await getCollection("cases");
+	
+	//const uniqueTopics = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+	
+	const uniqueTopics = [...new Set(allCases.map((c: any) => c.data.tags).flat())];
+	
+	//return uniqueTopics.map((topic) => { 	  const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(topic)); 	  return { 		params: { topic }, 		props: { posts: filteredPosts }, 	  }; 	});
+	
 	
 	return uniqueTopics.map((topic) => {
-	  const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(topic));
-	  return {
-		params: { topic },
-		props: { posts: filteredPosts },
-	  };
-	});
+    const filteredCases = allCases.filter((c) =>
+      c.data.tags.includes(topic)
+    );
+    return {
+      params: { topic },
+      props: { cases: filteredCases },
+    };
+  });
 
 }
 
+
+// btw ul : {posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+
 const { topic } = Astro.params;
-const { posts } = Astro.props;
+const { cases } = Astro.props;
 ---
+
 <BaseLayout pgTitle={topic}>
-  <p>Posts tagged with {topic}</p>
+  <p>Cases tagged with {topic}</p>
     <ul>
-		{posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+		
+		{cases.map((c) => <Case url={`/myAstroTest/cases/${c.id}/`} title={c.data.title}/>)}
   </ul>
 </BaseLayout>

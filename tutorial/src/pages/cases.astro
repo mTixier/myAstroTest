@@ -1,0 +1,18 @@
+---
+import '../styles/global.css';
+import { getCollection } from "astro:content";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Case from '../components/Case.astro';
+
+const allCases = await getCollection("cases");
+
+const pgTitle = "PEPR eNSEMEBLE - PC2 PILOT Cases";
+---
+
+<BaseLayout pgTitle={pgTitle}>
+	  <p>This is the list of project case for PC2 PILOT.</p>	
+	  <ul>
+		{allCases.map((c: any) => <Case url={`/myAstroTest/cases/${c.id}/`} title={c.data.title} />)}
+	  </ul>
+
+</BaseLayout>
