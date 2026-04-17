@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogPost from '../components/BlogPost.astro';
+
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 
 const pgTitle = "My Astro Learning Blog";
 ---
@@ -8,9 +11,7 @@ const pgTitle = "My Astro Learning Blog";
 <BaseLayout pgTitle={pgTitle}>
 	  <p>This is where I will post about my journey learning Astro.</p>	
 	  <ul>
-		<a href="/myAstroTest/posts/post-1">My first blog post</a>
-		<a href="/myAstroTest/posts/post-2">Post 2</a>
-		<a href="/myAstroTest/posts/post-3">Post 3</a>
+		{allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
 	  </ul>
 
 </BaseLayout>
