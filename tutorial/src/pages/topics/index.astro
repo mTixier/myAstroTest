@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+const topics = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+
+const pgTitle = "Topics index";
+---
+
+<BaseLayout pgTitle={pgTitle}>
+  <div class="tags">
+    {topics.map((topic) => (
+      <p class="tag"><a href={`/myAstroTest/topics/${topic}`}>{topic}</a></p>
+    ))}
+  </div>
+</BaseLayout>
