@@ -1,10 +1,36 @@
 ---
 import '../styles/global.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Case from '../components/Case.astro';
 
-const pgTitle = "A research cases library";
+import { getCollection } from "astro:content";
+
+const allCases = (await getCollection("cases")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const higlightedCases = allCases.slice(0,3);
+
+const topics = [...new Set(allCases.map((c) => c.data.tags).flat())];
+
+
+const pgTitle = "A Research Cases Repository about Long Term Collaboration";
 ---
 
 <BaseLayout pgTitle={pgTitle}>
-  <h2>Work in porgress -- here are coming the highlights</h2>
+  <h2>Last updated Research Cases: </h2>
+	<div>
+	  <ul>
+		{higlightedCases.map((c: any) => <Case url={`/myAstroTest/cases/${c.id}/`} title={c.data.title} />)}
+	  </ul>
+	</div>
+  
+  
+  
+   <h2>Research Cases Topics index: </h2>
+	   <div class="tags">
+		{topics.map((topic) => (
+		  <p class="tag"><a href={`/myAstroTest/topics/${topic}`}>{topic}</a></p>
+		))}
+	  </div>  
+   
+   
 </BaseLayout>
