@@ -9,8 +9,19 @@ const allCases = (await getCollection("cases")).sort((a, b) => b.data.pubDate.va
 
 const higlightedCases = allCases.slice(0,3);
 
-const topics = [...new Set(allCases.map((c) => c.data.tags).flat())];
 
+const topics = allCases.map((c) => c.data.tags).flat();
+const uniqueTopics = [...new Set(allCases.map((c) => c.data.tags).flat())];
+
+const countedTopics = uniqueTopics.map((t) => { 
+	let o = {}
+	o.key = t
+	o.value = topics.filter(x => t === x).length
+	return o;
+	});
+
+const orderedTopics = countedTopics.sort((a, b) => b.value - a.value);
+const highlightedTopics = orderedTopics.map((elt) => elt.key).slice(0,3);
 
 const pgTitle = "A Research Cases Repository about Long Term Collaboration";
 ---
@@ -25,9 +36,9 @@ const pgTitle = "A Research Cases Repository about Long Term Collaboration";
   
   
   
-   <h2>Research Cases Topics index: </h2>
+   <h2>Research Cases Topics highlights: </h2>
 	   <div class="tags">
-		{topics.map((topic) => (
+		{highlightedTopics.map((topic) => (
 		  <p class="tag"><a href={`/myAstroTest/topics/${topic}`}>{topic}</a></p>
 		))}
 	  </div>  
