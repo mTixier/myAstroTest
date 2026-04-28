@@ -1,0 +1,71 @@
+---
+const { topics, authors } = Astro.props;
+---
+
+<form name="caseForm" id="caseForm">
+
+<p><label for="title">Title: </label><input name="title" value="Case title" /></p>
+
+<p><label for="pubDate">Publication date:</label><input name="pubDate" value="2026-04-16"/></p>
+
+<p><label for="description">Short description:</label><input name="description" value='This is the case description'/></p>
+
+<!--
+image:
+    url: 'https://hal.science/PEPR-ENSEMBLE/public/Banniere_PEPR_ensemble_v2.png'
+    alt: 'An exemplar image for the project.'
+-->
+
+<!--
+Attention au resultat si le fichier n'est pas bien formatté...
+-->
+
+<!-- autocoimplete - https://masup9.github.io/apg-patterns-examples/patterns/combobox/astro/#source-code append to a editable field-->
+
+<p>
+<label for="authors">Author(s) : </label><input name="authors" id="authors" /><br/>
+<label for="authorsList">Lookup for existing authors: </label>
+<input list="authorsList" id="authorsAppender" name="authorsAppender">
+<datalist id="authorsList">
+  {authors.map((a: any) => <option value={a} />)}
+</datalist>
+<input type="button" onclick="javascript:document.getElementById('authors').value += document.getElementById('authorsAppender').value+', ';document.getElementById('authorsAppender').value = ''" value="Add author"/>
+</p>
+
+
+
+<p>
+<label for="topics">The topics indexing this case: </label><input name="topics" id="topics" /><br/>
+<label for="topicsList">Lookup for existing topics: </label>
+<input list="topicsList" id="topicsAppender" name="topicsAppender">
+<datalist id="topicsList">
+  {topics.map((t: any) => <option value={t} />)}
+</datalist>
+<input type="button" onclick="javascript:document.getElementById('topics').value += document.getElementById('topicsAppender').value+', ';document.getElementById('topicsAppender').value = ''" value="Add topic"/>
+</p>
+
+
+<p>
+<textarea name="casePresentation" id="casePresentation" rows="20" cols="80">
+
+Provide a description of the research case and field site.
+
+## With as much sections (or list) as needed
+
+My field study is awesome.
+
+1. **Negotiate field entry**: First, I shared details about my entry in the field site.
+
+2. **Collected data**: with `anonymity` and `systematic organization in mind`.
+
+3. **Crunching the transcripts**: Leading to inspiring results.
+
+
+## Publication(s)
+
+1. Léonord Rolland-Blin, Khuloud Abou Amsha, Matthieu Tixier. How Different Stakeholders Make Use of Policies in an Ongoing Digital Archiving Project for Patient Records?. InfraHEALTH 2025, LIST3N|TPRA, Université de Technologie de Troyes, Oct 2025, Troyes, France. [10.48340/ihc2025_p007](https://dx.doi.org/10.48340/ihc2025_p007). [hal-05250539](https://hal.science/hal-05250539v1)
+
+</textarea>
+</p>
+
+</form>

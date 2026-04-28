@@ -11,7 +11,7 @@ const higlightedCases = allCases.slice(0,3);
 
 
 const topics = allCases.map((c) => c.data.tags).flat();
-const uniqueTopics = [...new Set(allCases.map((c) => c.data.tags).flat())];
+const uniqueTopics = [...new Set(topics)];
 
 const countedTopics = uniqueTopics.map((t) => { 
 	let o = {}

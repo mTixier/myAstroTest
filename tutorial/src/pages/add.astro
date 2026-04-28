@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResearchCaseForm from '../components/ResearchCaseForm.astro';
+
+import { getCollection } from "astro:content";
+
+const allCases = (await getCollection("cases")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const topics = allCases.map((c) => c.data.tags).flat();
+const uniqueTopics = [...new Set(topics)];
+
+const uniqueAuthors = [...new Set(allCases.map((c) => c.data.authors).flat())];
+
+
+const pgTitle = "Add your Research cas to the Collection";
+---
+
+<BaseLayout pgTitle={pgTitle}>
+  <h2>How to: </h2>
+	<p
+	>A reserche case is a simple markdown document that follows simple conventions for meta-data in order to ease indexing. You can see an example <a href="https://github.com/mTixier/myAstroTest/blob/main/tutorial/src/cases/_caseMASTER.md" target="_blank">here</a>. In order to add a new case you can create your document with your prefered TextEditor and upload it on the <a href="https://github.com/mTixier/myAstroTest/tree/main/tutorial/src/cases" target="_blank">research case collection GitHub repository (in the cases folder) </a>. Once submited on Github the case will automatically deployed in the next 20 minutes after validation. 
+	</p> 
+	
+	<p>
+	You can use as well the following form to assist you in writing your case and setting up the meta-data. Once ready copy/paste the markdown and upload it in a new File on the <a href="https://github.com/mTixier/myAstroTest/tree/main/tutorial/src/cases" target="_blank">research case collection GitHub repository (in the cases folder) </a>.
+	</p>
+  
+  <h2>Work in progress - Research Case Form </h2>
+	<ResearchCaseForm topics={uniqueTopics} authors={uniqueAuthors}/>
+  
+<!--  
+   <h2>Research Cases Topics highlights: </h2>
+	   <div class="tags">
+		{highlightedTopics.map((topic) => (
+		  <p class="tag"><a href={`/myAstroTest/topics/${topic}`}>{topic}</a></p>
+		))}
+	  </div>  
+-->   
+   
+</BaseLayout>
