@@ -1,14 +1,16 @@
 ---
+import Dialog from './Dialog.astro';
+
 const { topics, authors } = Astro.props;
 ---
 
 <form name="caseForm" id="caseForm">
 
-<p><label for="title">Title: </label><input name="title" value="Case title" /></p>
+<p><label for="title">Title: </label><input name="title" id="title" value="Case title" /></p>
 
-<p><label for="pubDate">Publication date:</label><input name="pubDate" value="2026-04-16"/></p>
+<p><label for="pubDate">Publication date:</label><input name="pubDate" id="pubDate" value="2026-04-16"/></p>
 
-<p><label for="description">Short description:</label><input name="description" value='This is the case description'/></p>
+<p><label for="description">Short description:</label><input name="description" id="description" value='This is the case description'/></p>
 
 <!--
 image:
@@ -68,4 +70,42 @@ My field study is awesome.
 </textarea>
 </p>
 
+
+<Dialog
+  title="Resarch Case in Astro MD"
+  description="Copy paste the research case properly formatted in Astro Markdown format"
+  triggerText="Show my case for copy pasting on GitHub"
+>
+  <textarea id="CaseMD" rows="20" cols="80">Dialog content goes here.</textarea>
+</Dialog>
+
 </form>
+
+<script>
+
+const updateCaseContent = function(){
+	const cTitle = document.getElementById('title').value;
+	const cPubDate = document.getElementById('pubDate').value;
+	const cDescription = document.getElementById('description').value;
+	const cAuthors = document.getElementById('authors').value.match(/, $/) ? document.getElementById('authors').value.slice(0, -2):document.getElementById('authors').value;
+	const cTopics = document.getElementById('topics').value.match(/, $/) ? document.getElementById('topics').value.slice(0, -2):document.getElementById('topics').value;
+	const cCasePresentation = document.getElementById('casePresentation').value;
+
+	document.getElementById('CaseMD').value = `
+---
+title: '${cTitle}'
+pubDate: ${cPubDate}
+description: '${cDescription}'
+authors: ["${cAuthors}"]
+tags: ["${cTopics}"]
+---
+
+
+${cCasePresentation}
+	`;
+}
+
+const modalButton = document.querySelector('[data-dialog-trigger]');
+modalButton.addEventListener('click', updateCaseContent);
+
+</script>
