@@ -53,10 +53,7 @@ const descriptionId = `${instanceId}-description`;
     data-dialog-content
   >
     <div class="apg-dialog-header">
-      <h2 id={titleId} class="apg-dialog-title">
-        {title}
-      </h2>
-      <button type="button" class="apg-dialog-close" data-dialog-close aria-label="Close dialog">
+      <button type="button" style="floatd:right" class="apg-dialog-close" data-dialog-close aria-label="Close dialog">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -73,6 +70,11 @@ const descriptionId = `${instanceId}-description`;
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
+
+      <h2 id={titleId} class="apg-dialog-title">
+        {title}
+      </h2>
+
     </div>
     {
       description && (

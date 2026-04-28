@@ -76,7 +76,9 @@ My field study is awesome.
   description="Copy paste the research case properly formatted in Astro Markdown format"
   triggerText="Show my case for copy pasting on GitHub"
 >
+  <input type="button" onclick="javascript:navigator.clipboard.writeText(document.getElementById('CaseMD').value);" value="Copy" style="float:right"/>
   <textarea id="CaseMD" rows="20" cols="80">Dialog content goes here.</textarea>
+  
 </Dialog>
 
 </form>
