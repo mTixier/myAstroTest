@@ -12,6 +12,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.1.7"
+    "astro": "^6.1.7",
+    "rehype-accessible-emojis": "^0.3.2",
+    "remark-toc": "^9.0.0"
   }
 }

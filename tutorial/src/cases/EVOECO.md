@@ -13,13 +13,13 @@ Provide a description of the research case and field site.
 
 ## With as much sections (or list) as needed
 
-My field study is awesome.
+⭐👍 My field study is awesome.
 
 1. **Negotiate field entry**: First, I shared details about my entry in the field site.
 
 2. **Collected data**: with `anonymity` and `systematic organization in mind`.
 
-3. **Crunching the transcripts**: Leading to inspiring results.
+3. **Crunching the transcripts**: Leading to inspiring results 💡.
 
 
 ## Publication(s)
